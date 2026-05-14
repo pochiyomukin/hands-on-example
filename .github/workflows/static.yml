@@ -29,15 +29,14 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       # Node.jsの準備
       - uses: actions/checkout@v4
-      - name: Use Node.js v20
+      - name: Use Node.js v24
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: "npm"
       # インストール
       - run: npm ci
@@ -46,12 +45,12 @@ jobs:
 
       # デプロイ
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           # Upload entire repository
-          path: './out/'
+          path: ./out
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
